@@ -2,6 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const mammoth = require("mammoth");
+const path = require("path");
 
 async function decodeSecretMessage(source) {
   try {
@@ -53,7 +54,8 @@ async function decodeSecretMessage(source) {
       const cells = $(row)
         .find("td, th")
         .map((i, el) => $(el).text().trim())
-        .get();
+        .get()
+        .filter((cell) => cell.length > 0);
 
       if (cells.length >= 3) {
         const x = parseInt(cells[0], 10);
@@ -84,8 +86,8 @@ async function decodeSecretMessage(source) {
 
 if (require.main === module) {
   decodeSecretMessage(
-    // "https://1drv.ms/w/c/f4410954c3a49f1c/IQCU-48mg3hQRJvRvDgUkoMxAaeZGhb6SCtmBd-CP710swE?e=oxlKnO",
-    "https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub",
+    path.join(__dirname, "decoder_hidden_message.docx"),
+    // "https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub",
   );
 }
 
