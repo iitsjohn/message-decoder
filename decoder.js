@@ -83,7 +83,7 @@ async function decodeSecretMessage(source) {
     console.error("Error fetching or parsing the document:", error.message);
   }
 }
-
+// test changed author
 if (require.main === module) {
   decodeSecretMessage(
     path.join(__dirname, "decoder_hidden_message.docx"),
